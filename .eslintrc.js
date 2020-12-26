@@ -1,14 +1,6 @@
 module.exports = {
-  extends: ['standard', 'prettier'],
-  plugins: ['prettier'],
-  rules: {
-    'prettier/prettier': [
-      'error',
-      {
-        singleQuote: true,
-        semi: false,
-      },
-    ],
-  },
+  extends: ["standard", "prettier"],
+  plugins: ["prettier"],
+  rules: {},
   env: { jest: true },
 }
