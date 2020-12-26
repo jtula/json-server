@@ -26,6 +26,10 @@ function verifyToken(token) {
   )
 }
 
+function getProfile(email) {
+  return userdb.users.find((res) => res.email === email)
+}
+
 function isAuthenticated({ email, password }) {
   return (
     userdb.users.findIndex(
@@ -35,7 +39,6 @@ function isAuthenticated({ email, password }) {
 }
 
 server.post("/auth/login", (req, res) => {
-  console.log(req.body)
   const { email, password } = req.body
   if (isAuthenticated({ email, password }) === false) {
     const status = 401
@@ -43,8 +46,9 @@ server.post("/auth/login", (req, res) => {
     res.status(status).json({ status, message })
     return
   }
+  const user = getProfile(email)
   const accessToken = createToken({ email, password })
-  res.status(200).json({ accessToken })
+  res.status(200).json({ accessToken, user })
 })
 
 server.use(/^(?!\/auth).*$/, (req, res, next) => {
